@@ -11,24 +11,23 @@ var wide = fs.readFileSync('./test/fixtures/wide.png');
 var small = fs.readFileSync('./test/fixtures/small.png');
 var a = fs.readFileSync('./test/fixtures/a.png'); 
 var b = fs.readFileSync('./test/fixtures/b.png'); 
-var count = 0;
 
+var count = 0;
 test('thumbnail stream', function(assert) {
     var results = [];
     thumbnailStream.on('data', function(d) {
-        console.log(d);
         mapnik.Image.fromBytes(d, function(err, res) {
             assert.ifError(err);
+            count++
             results.push(res);
-            console.log()
             assert.equal(res.width(), 150);
             assert.equal(res.height(), 150);
+            if (count > 5) end();
         });
     });
     thumbnailStream.on('end', function() {
-        assert.equal(results.length, 5);
-        console.log(count);
-        assert.end(); 
+        count++;
+        if (count > 5) end();
     });
     thumbnailStream.write({ body: light });
     thumbnailStream.write({ body: dark });
@@ -36,7 +35,12 @@ test('thumbnail stream', function(assert) {
     thumbnailStream.write({ body: small }); //ignored
     thumbnailStream.write({ body: a });
     thumbnailStream.write({ body: b });
-    thumbnailStream.end();
+    thumbnailStream.end();s
+
+    function end() {
+        assert.equal(results.length, 5);
+        assert.end();
+    }
 });
 
 test('write png stream', function(assert) {
