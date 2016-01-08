@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cloudfront-log-reader": "1.1.0",
+    "cloudfront-log-reader": "1.1.1",
     "tape": "4.4.0"
   },
   "dependencies": {
