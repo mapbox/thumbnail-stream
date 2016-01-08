@@ -3,7 +3,7 @@
 var fs = require('fs');
 var split = require('split');
 var stream = require('stream');
-var thumbnailStream = require('../index.js').ThumbnailStream();
+var thumbnailStream = require('../index.js').ThumbnailStream({});
 var dir = './tmp';
 if (fs.existsSync(dir)) fs.rmdirSync(dir);
 fs.mkdirSync(dir);
