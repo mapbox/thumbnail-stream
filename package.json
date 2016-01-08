@@ -6,10 +6,13 @@
   "scripts": {
     "test": "tape test/*.test.js"
   },
+  "bin": {
+    "thumbnail-stream": "./bin/thumbnail"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cloudfront-log-reader": "1.0.1",
+    "cloudfront-log-reader": "1.1.0",
     "tape": "4.4.0"
   },
   "dependencies": {

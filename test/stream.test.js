@@ -1,7 +1,8 @@
 var test = require('tape');
 var fs = require('fs');
-var thumbnailStream = require('../index.js').ThumbnailStream({});
+var thumbnailStream = require('../index.js').ThumbnailStream({ size: 150 });
 var dir = './tmp';
+if (fs.existsSync(dir)) fs.rmdirSync(dir);
 fs.mkdirSync(dir);
 var writePNGStream = require('../index.js').WritePNGStream(dir);
 var mapnik = require('mapnik');
@@ -35,7 +36,7 @@ test('thumbnail stream', function(assert) {
     thumbnailStream.write({ body: small }); //ignored
     thumbnailStream.write({ body: a });
     thumbnailStream.write({ body: b });
-    thumbnailStream.end();s
+    thumbnailStream.end();
 
     function end() {
         assert.equal(results.length, 5);

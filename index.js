@@ -14,8 +14,8 @@ function ThumbnailStream(options) {
     thumbnailStream._transform = function(data, enc, callback) {
         mapnik.Image.fromBytes(data.body, function(err, res) {
             if (err) return callback(err);
-            if (!options.width) options.width = res.width();
-            if (!options.height) options.height = res.height();
+            options.width = res.width();
+            options.height = res.height();
             var thumb = thumbnail(res, options);
             if (thumb) thumbnailStream.push(thumb);
             callback();
@@ -26,7 +26,7 @@ function ThumbnailStream(options) {
 };
 
 function thumbnail(png, options) {
-    if (!options.size) options.size = 150;
+    if (!options.size) options.size = 350;
     if (options.size > options.height || options.size > options.width) return;
     var img = new mapnik.Image(options.size, options.size);
 
@@ -36,7 +36,6 @@ function thumbnail(png, options) {
     } else if (options.width > options.height) {
         options.width = options.height;        
     }
-
 
     // round down to something divisible by size
     options.height = options.height - (options.height % options.size);
@@ -52,7 +51,6 @@ function thumbnail(png, options) {
             var block = getblock(a, b);
             var pixel = average(block);
             if (!pixel) return;
-            
             // put it somewhere in thumbnail
             var x = i/n;
             var y = j/n;

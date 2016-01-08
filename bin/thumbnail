@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-// Expects logfile as stdin
 var fs = require('fs');
 var split = require('split');
 var stream = require('stream');
-var thumbnailStream = require('../index.js').ThumbnailStream({ size: 150 });
+var thumbnailStream = require('../index.js').ThumbnailStream();
 var dir = './tmp';
+if (fs.existsSync(dir)) fs.rmdirSync(dir);
 fs.mkdirSync(dir);
 var writePNGStream = require('../index.js').WritePNGStream(dir);
 var reader = require('cloudfront-log-reader');
-var reqStream = reader.RequestStream({ baseurl: 'https://api.mapbox.com' });
+var reqStream = reader.RequestStream({ baseurl: 'https://api-gl-stageyprod.tilestream.net' });
 
 process.stdin
     .pipe(split())
@@ -25,4 +25,4 @@ process.stdin
     .on('end', function() {
     });
 
-// http://api-gl-production-VPC-1305749750.us-west-1.elb.amazonaws.com
+
