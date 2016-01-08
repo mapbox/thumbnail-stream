@@ -7,11 +7,13 @@ module.exports.ThumbnailStream = ThumbnailStream;
 module.exports.WritePNGStream = WritePNGStream;
 
 function ThumbnailStream(options) {
-    // options.sample?
-
+    if (!options.sample) options.sample = 1;
+    count = 0;
     // input is stream of objects in cflogreplay format
     var thumbnailStream = new stream.Transform({ objectMode: true });
     thumbnailStream._transform = function(data, enc, callback) {
+        count++;
+        if (count % options.sample !== 0) return callback();
         mapnik.Image.fromBytes(data.body, function(err, res) {
             if (err) return callback(err);
             options.width = res.width();

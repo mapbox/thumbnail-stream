@@ -1,10 +1,5 @@
 var test = require('tape');
 var fs = require('fs');
-var thumbnailStream = require('../index.js').ThumbnailStream({ size: 150 });
-var dir = './tmp';
-if (fs.existsSync(dir)) fs.rmdirSync(dir);
-fs.mkdirSync(dir);
-var writePNGStream = require('../index.js').WritePNGStream(dir);
 var mapnik = require('mapnik');
 var light = fs.readFileSync('./test/fixtures/light.png');
 var dark = fs.readFileSync('./test/fixtures/dark.png');
@@ -13,9 +8,10 @@ var small = fs.readFileSync('./test/fixtures/small.png');
 var a = fs.readFileSync('./test/fixtures/a.png'); 
 var b = fs.readFileSync('./test/fixtures/b.png'); 
 
-var count = 0;
 test('thumbnail stream', function(assert) {
+    var thumbnailStream = require('../index.js').ThumbnailStream({ size: 150 });
     var results = [];
+    var count = 0;
     thumbnailStream.on('data', function(d) {
         mapnik.Image.fromBytes(d, function(err, res) {
             assert.ifError(err);
@@ -44,7 +40,31 @@ test('thumbnail stream', function(assert) {
     }
 });
 
+test('thumbnail stream [sample]', function(assert) {
+    var thumbnailStream = require('../index.js').ThumbnailStream({
+            size: 150,
+            sample: 2
+    });
+    var results = [];
+    thumbnailStream.on('data', function(d) {
+        results.push(d);
+    });
+    thumbnailStream.on('end', function() {
+        assert.equal(results.length, 2);
+        assert.end();
+    });
+    thumbnailStream.write({ body: a });
+    thumbnailStream.write({ body: b });
+    thumbnailStream.write({ body: a });
+    thumbnailStream.write({ body: b });
+    thumbnailStream.end();
+});
+
 test('write png stream', function(assert) {
+    var dir = './tmp';
+    if (fs.existsSync(dir)) fs.rmdirSync(dir);
+    fs.mkdirSync(dir);
+    var writePNGStream = require('../index.js').WritePNGStream(dir);
     writePNGStream.on('data', function(d) {
     });
     writePNGStream.on('end', function() {
