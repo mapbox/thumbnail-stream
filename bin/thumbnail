@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+var baseurl = process.argv[2];
+if (!baseurl) {
+  console.error('Usage: thumbnail-stream <baseurl>');
+  process.exit(1);
+}
+
 var fs = require('fs');
 var split = require('split');
 var stream = require('stream');
@@ -9,7 +15,7 @@ if (fs.existsSync(dir)) fs.rmdirSync(dir);
 fs.mkdirSync(dir);
 var writePNGStream = require('../index.js').WritePNGStream(dir);
 var reader = require('cloudfront-log-reader');
-var reqStream = reader.RequestStream({ baseurl: 'https://api-gl-stageyprod.tilestream.net' });
+var reqStream = reader.RequestStream({ baseurl: baseurl });
 
 process.stdin
     .pipe(split())
