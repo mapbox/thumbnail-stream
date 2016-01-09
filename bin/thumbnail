@@ -6,10 +6,14 @@ if (!baseurl) {
   process.exit(1);
 }
 
+var size = process.argv[3];
+if (size) size = parseInt(size);
+if (!size) size = 350;
+
 var fs = require('fs');
 var split = require('split');
 var stream = require('stream');
-var thumbnailStream = require('../index.js').ThumbnailStream({});
+var thumbnailStream = require('../index.js').ThumbnailStream({ size: size });
 var dir = './tmp';
 if (fs.existsSync(dir)) fs.rmdirSync(dir);
 fs.mkdirSync(dir);
