@@ -14,7 +14,7 @@ function ThumbnailStream(options) {
     thumbnailStream._transform = function(data, enc, callback) {
         count++;
         if (count % options.sample !== 0) return callback();
-        mapnik.Image.fromBytes(data.body, function(err, res) {
+        mapnik.Image.fromBytes(data, function(err, res) {
             if (err) return callback(err);
             options.width = res.width();
             options.height = res.height();

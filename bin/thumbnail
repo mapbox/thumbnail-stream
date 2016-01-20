@@ -21,9 +21,16 @@ var writePNGStream = require('../index.js').WritePNGStream(dir);
 var reader = require('cloudfront-log-reader');
 var reqStream = reader.RequestStream({ baseurl: baseurl });
 
+var cflogstream = new stream.Transform({ objectMode: true });
+cflogstream._transform = function(data, enc, callback) {
+    cflogstream.push(data.body);
+    callback();
+};
+
 process.stdin
     .pipe(split())
     .pipe(reqStream)
+    .pipe(cflogstream)
     .pipe(thumbnailStream)
     .pipe(writePNGStream)
     .on('error', function(err) {
