@@ -26,12 +26,12 @@ test('thumbnail stream', function(assert) {
         count++;
         if (count > 5) end();
     });
-    thumbnailStream.write({ body: light });
-    thumbnailStream.write({ body: dark });
-    thumbnailStream.write({ body: wide });
-    thumbnailStream.write({ body: small }); //ignored
-    thumbnailStream.write({ body: a });
-    thumbnailStream.write({ body: b });
+    thumbnailStream.write(light);
+    thumbnailStream.write(dark);
+    thumbnailStream.write(wide);
+    thumbnailStream.write(small); //ignored
+    thumbnailStream.write(a);
+    thumbnailStream.write(b);
     thumbnailStream.end();
 
     function end() {
@@ -53,10 +53,10 @@ test('thumbnail stream [sample]', function(assert) {
         assert.equal(results.length, 2);
         assert.end();
     });
-    thumbnailStream.write({ body: a });
-    thumbnailStream.write({ body: b });
-    thumbnailStream.write({ body: a });
-    thumbnailStream.write({ body: b });
+    thumbnailStream.write(a);
+    thumbnailStream.write(b);
+    thumbnailStream.write(a);
+    thumbnailStream.write(b);
     thumbnailStream.end();
 });
 
