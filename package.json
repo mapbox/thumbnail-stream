@@ -7,7 +7,7 @@
     "test": "tape test/*.test.js"
   },
   "bin": {
-    "thumbnail-stream": "./bin/thumbnail"
+    "thumbnailstream": "./bin/thumbnailstream"
   },
   "author": "",
   "license": "ISC",
