@@ -9,8 +9,8 @@
   "bin": {
     "thumbnailstream": "./bin/thumbnailstream"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Mapbox",
+  "license": "BSD",
   "devDependencies": {
     "cloudfront-log-reader": "1.1.1",
     "tape": "4.4.0"
