@@ -1,6 +1,6 @@
 {
   "name": "thumbnail-stream",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "generate thumbnails from a stream of png buffers",
   "main": "index.js",
   "scripts": {
