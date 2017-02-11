@@ -1,21 +1,21 @@
 {
-  "name": "thumbnail-stream",
-  "version": "0.1.0",
-  "description": "generate thumbnails from a stream of png buffers",
-  "main": "index.js",
-  "scripts": {
-    "test": "tape test/*.test.js"
-  },
   "bin": {
     "thumbnailstream": "./bin/thumbnailstream"
-  },
-  "author": "Mapbox",
-  "license": "BSD",
-  "devDependencies": {
-    "cloudfront-log-reader": "1.1.1",
-    "tape": "4.4.0"
-  },
+  }, 
+  "name": "thumbnail-stream", 
+  "license": "BSD-2-Clause", 
+  "author": "Mapbox", 
+  "version": "0.1.0", 
   "dependencies": {
     "mapnik": "^3.4.12"
-  }
+  }, 
+  "scripts": {
+    "test": "tape test/*.test.js"
+  }, 
+  "devDependencies": {
+    "cloudfront-log-reader": "1.1.1", 
+    "tape": "4.4.0"
+  }, 
+  "main": "index.js", 
+  "description": "generate thumbnails from a stream of png buffers"
 }
